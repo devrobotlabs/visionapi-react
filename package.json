@@ -1,5 +1,5 @@
 {
-  "name": "@devrobotlab/visionapi-react",
+  "name": "@devrobotlabs/visionapi-react",
   "version": "1.0.0",
   "description": "Official React hooks for the Vision API — OCR and visual intelligence. Upload a file, get structured JSON with per-field confidence.",
   "type": "module",

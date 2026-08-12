@@ -4,10 +4,10 @@
  * Put this at `app/api/vision/[...action]/route.ts` and the hooks work with
  * `<VisionProvider baseUrl="/api/vision">`. It covers all five paths they call.
  *
- *   npm install @devrobotlab/visionapi
+ *   npm install @devrobotlabs/visionapi
  */
 
-import { VisionAPI, VisionAPIError } from '@devrobotlab/visionapi';
+import { VisionAPI, VisionAPIError } from '@devrobotlabs/visionapi';
 import type { NextRequest } from 'next/server';
 
 // One client for the process. VISION_API_KEY is read at construction and never leaves the

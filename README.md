@@ -3,7 +3,7 @@
 Official React hooks for [Vision API](https://visionapi.io) — let a user pick an image or a
 PDF and get structured JSON back with a confidence level on every value.
 
-[![npm](https://img.shields.io/npm/v/@devrobotlab/visionapi-react.svg)](https://www.npmjs.com/package/@devrobotlab/visionapi-react)
+[![npm](https://img.shields.io/npm/v/@devrobotlabs/visionapi-react.svg)](https://www.npmjs.com/package/@devrobotlabs/visionapi-react)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 - **Website** — <https://visionapi.io>
@@ -21,14 +21,14 @@ PDF and get structured JSON back with a confidence level on every value.
 credential — anyone who reads it out of your bundle can spend your credits. So these hooks
 do **not** talk to `api.visionapi.io`. They talk to **your** endpoint, which holds the key
 and calls the API server-side with
-[`@devrobotlab/visionapi`](https://github.com/devrobotlabs/visionapi-node).
+[`@devrobotlabs/visionapi`](https://github.com/devrobotlabs/visionapi-node).
 
 That endpoint is about four lines, and it is also where your own authorization, quota and
 audit trail belong:
 
 ```ts
 // app/api/vision/analyze/route.ts — Next.js App Router
-import { VisionAPI, VisionAPIError } from '@devrobotlab/visionapi';
+import { VisionAPI, VisionAPIError } from '@devrobotlabs/visionapi';
 
 const vision = new VisionAPI(); // reads VISION_API_KEY, server-side only
 
@@ -67,7 +67,7 @@ and `/presets`. Full proxies for Next.js, Express and Remix are in
 ## Install
 
 ```bash
-npm install @devrobotlab/visionapi-react
+npm install @devrobotlabs/visionapi-react
 ```
 
 React 18+. No dependencies of its own.
@@ -75,7 +75,7 @@ React 18+. No dependencies of its own.
 ## Quick start
 
 ```tsx
-import { VisionProvider, useAnalyze, unwrap } from '@devrobotlab/visionapi-react';
+import { VisionProvider, useAnalyze, unwrap } from '@devrobotlabs/visionapi-react';
 
 function App() {
   return (
@@ -246,7 +246,7 @@ wrapped, each **cell** inside each row is.
 The helpers cover the common readings:
 
 ```tsx
-import { unwrap, value, rows, belowConfidence, atLeast } from '@devrobotlab/visionapi-react';
+import { unwrap, value, rows, belowConfidence, atLeast } from '@devrobotlabs/visionapi-react';
 
 unwrap(data.result, { dropNull: true })   // { invoice_id: 'A-10422', total: 1284.5, … }
 value(data.result, 'total', 0)            // 1284.5, or 0 when absent

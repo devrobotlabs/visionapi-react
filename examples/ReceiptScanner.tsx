@@ -9,7 +9,7 @@
  */
 
 import { useEffect, useState } from 'react';
-import { belowConfidence, unwrap, useAnalyze } from '@devrobotlab/visionapi-react';
+import { belowConfidence, unwrap, useAnalyze } from '@devrobotlabs/visionapi-react';
 
 export function ReceiptScanner({ onSave }: { onSave: (receipt: Record<string, unknown>) => void }) {
   const { analyze, data, isLoading, error, progress, reset } = useAnalyze();

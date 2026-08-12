@@ -1,13 +1,13 @@
 /**
  * The same proxy for Express.
  *
- *   npm install @devrobotlab/visionapi express multer
+ *   npm install @devrobotlabs/visionapi express multer
  *
  * Mount it at /api/vision and the hooks work with
  * `<VisionProvider baseUrl="/api/vision">`.
  */
 
-import { VisionAPI, VisionAPIError } from '@devrobotlab/visionapi';
+import { VisionAPI, VisionAPIError } from '@devrobotlabs/visionapi';
 import express from 'express';
 import multer from 'multer';
 

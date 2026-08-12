@@ -9,7 +9,7 @@
  */
 
 import { useState } from 'react';
-import { unwrap, useTask } from '@devrobotlab/visionapi-react';
+import { unwrap, useTask } from '@devrobotlabs/visionapi-react';
 
 export function AsyncUpload() {
   const [taskId, setTaskId] = useState<string | null>(null);

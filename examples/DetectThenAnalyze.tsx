@@ -9,8 +9,8 @@
  */
 
 import { useState } from 'react';
-import { unwrap, useAnalyze, useDetect } from '@devrobotlab/visionapi-react';
-import type { DetectResponse } from '@devrobotlab/visionapi-react';
+import { unwrap, useAnalyze, useDetect } from '@devrobotlabs/visionapi-react';
+import type { DetectResponse } from '@devrobotlabs/visionapi-react';
 
 export function DetectThenAnalyze() {
   const [file, setFile] = useState<File | null>(null);
