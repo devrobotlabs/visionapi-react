@@ -1,0 +1,61 @@
+{
+  "name": "@devrobotlab/visionapi-react",
+  "version": "1.0.0",
+  "description": "Official React hooks for the Vision API — OCR and visual intelligence. Upload a file, get structured JSON with per-field confidence.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --test \"test/*.test.js\"",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "react",
+    "hooks",
+    "ocr",
+    "vision",
+    "document-ai",
+    "invoice",
+    "receipt",
+    "upload",
+    "visionapi"
+  ],
+  "homepage": "https://visionapi.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devrobotlabs/visionapi-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/devrobotlabs/visionapi-react/issues"
+  },
+  "license": "MIT",
+  "author": "Vision API <https://visionapi.io>",
+  "sideEffects": false,
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-test-renderer": "^18.3.1",
+    "typescript": "^5.7.0"
+  }
+}

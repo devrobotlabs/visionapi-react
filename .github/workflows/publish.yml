@@ -1,0 +1,56 @@
+name: Publish
+
+on:
+  push:
+    tags: ['v[0-9]+.[0-9]+.[0-9]+']
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write # OIDC — trusted publishing and provenance both need this
+    env:
+      # Bootstrap only. npm cannot configure a trusted publisher for a package that does not
+      # exist yet (npm/cli#8544), so 1.0.0 goes out under a short-lived granular token. Once
+      # the trusted publisher is configured, delete this secret: with it absent the auth step
+      # below is skipped and the job authenticates entirely over OIDC.
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          # Deliberately no `registry-url:`. It writes `_authToken=${NODE_AUTH_TOKEN}` into
+          # ~/.npmrc; with that variable unset npm sees the unexpanded placeholder, decides
+          # auth is already configured, never starts the OIDC exchange, and fails ENEEDAUTH.
+          # See actions/setup-node#1551. registry.npmjs.org is npm's default anyway.
+
+      - name: Use an npm that can do trusted publishing
+        run: npm install -g npm@latest # trusted publishing needs npm >= 11.5.1
+
+      - name: Tag must match package.json
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          pkg="$(node -p "require('./package.json').version")"
+          [ "$tag" = "$pkg" ] || { echo "tag $tag != package.json $pkg"; exit 1; }
+
+      - run: npm ci
+      - run: npm run typecheck
+      # The suite stubs `fetch`, so it needs no API key and makes no network calls.
+      - run: npm test
+
+      - name: Bootstrap auth (skipped once NPM_TOKEN is deleted)
+        if: env.NPM_TOKEN != ''
+        run: printf '//registry.npmjs.org/:_authToken=%s\n' "$NPM_TOKEN" >> "$HOME/.npmrc"
+
+      - name: Publish
+        # `prepublishOnly` runs the build, so dist/ is fresh. --provenance is required when
+        # publishing with a token and redundant but harmless under trusted publishing, which
+        # emits provenance on its own.
+        run: npm publish --access public --provenance
