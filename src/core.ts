@@ -366,7 +366,12 @@ export function buildFormData(
   params: Record<string, unknown> | object = {},
 ): FormData {
   const form = new FormData();
-  form.set('file', file, file instanceof File ? file.name : 'upload');
+  // Duck-typed rather than `file instanceof File`. File only became a global in Node 20, so
+  // the instanceof throws ReferenceError on Node 18 — in an SSR render, a proxy route or the
+  // test runner — for any plain Blob. Reading `.name` behaves identically in every browser
+  // and degrades to the fallback wherever it is absent.
+  const filename = typeof (file as File).name === 'string' ? (file as File).name : 'upload';
+  form.set('file', file, filename);
   for (const [key, value] of Object.entries(params as Record<string, unknown>)) {
     if (value === undefined || value === null) continue;
     if (Array.isArray(value)) {
